@@ -17,6 +17,6 @@ This can be done using servo motor as it is attached to pi camera, the camera ca
   
   The server code for getting coordinates is in LocationAPI.zip
   
-  The server or web application code for storing coordinates of damaged place and to display those coordinates when requested is in Web_app.zip
+  The server or web application code for storing coordinates of damaged place and to display those coordinates when requested, is in Web_app.zip
   
   The code for detecting damages using Aurduino uno board is in Aurdino-Uno code.txt file
