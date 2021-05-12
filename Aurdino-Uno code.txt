@@ -1,0 +1,229 @@
+#define TRIGPIN1 8
+
+#define ECHOPIN1 12//defined for first sensor
+
+#define TRIGPIN2 7
+
+#define ECHOPIN2 13//defined for second sensor
+
+ 
+
+#define MOTORINPUT1 9
+
+#define MOTORINPUT2 10
+
+#include <Servo.h>
+
+ 
+
+Servo myservo;  // create servo object to control a servo
+
+// twelve servo objects can be created on most boards
+
+ 
+
+void setup() {
+
+  pinMode(TRIGPIN1,OUTPUT);
+
+  pinMode(TRIGPIN2,OUTPUT);
+
+  pinMode(ECHOPIN1,INPUT);
+
+  pinMode(ECHOPIN2,INPUT);
+
+  pinMode(MOTORINPUT1,OUTPUT);
+
+  pinMode(MOTORINPUT2,OUTPUT);
+
+  myservo.attach(2);  // attaches the servo on GIO2 to the servo object
+
+  Serial.begin(9600);
+
+}
+
+ 
+
+float duration1;//first sensor
+
+float duration2;//second sensor
+
+ 
+
+void loop() {
+
+digitalWrite(TRIGPIN1,LOW);
+
+delayMicroseconds(2);
+
+digitalWrite(TRIGPIN1,HIGH);
+
+delayMicroseconds(10);           
+
+digitalWrite(TRIGPIN1,LOW);
+
+duration1=pulseIn(ECHOPIN1,HIGH);
+
+ 
+
+float distance1;
+
+distance1=(0.034*(duration1/2));
+
+ 
+
+digitalWrite(TRIGPIN2,LOW);
+
+delayMicroseconds(2);
+
+digitalWrite(TRIGPIN2,HIGH);
+
+delayMicroseconds(10);
+
+digitalWrite(TRIGPIN2,LOW);
+
+duration2=pulseIn(ECHOPIN2,HIGH);
+
+ 
+
+float distance2;
+
+distance2=(0.034*(duration2/2));
+
+ 
+
+Serial.print("value from sensor1:");
+
+Serial.print(distance1);
+
+Serial.println("cm");
+
+ 
+
+Serial.print("value from sensor2:");
+
+Serial.print(distance2);
+
+Serial.println("cm");
+
+if (((distance1)>4&&(distance1<5.65))&&((distance2)>4&&(distance2<5.65)))
+
+{
+
+  digitalWrite(MOTORINPUT1,HIGH);
+
+  digitalWrite(MOTORINPUT2,LOW);
+
+  Serial.println(0);
+
+}
+
+else if(((distance1)>10.8&&(distance1<13))&&((distance2)>10.8&&(distance2<13)))
+
+{
+
+  digitalWrite(MOTORINPUT1,HIGH);
+
+  digitalWrite(MOTORINPUT2,LOW);
+
+  Serial.println(0);
+
+}
+
+else
+
+{
+
+  Serial.println(1);
+
+float t;
+
+t=millis();
+
+int c=0;
+
+  while(millis()-t<30000)
+
+  {
+
+   digitalWrite(MOTORINPUT1,LOW);
+
+   digitalWrite(MOTORINPUT2,LOW);
+
+   if(c==0)
+
+   {
+
+   int pos;
+
+  for(pos=0;pos<=180;pos+=1)
+
+  {
+
+     myservo.write(pos);
+
+    if(pos==0||pos==90||pos==180)
+
+    {
+
+      Serial.println(2);
+
+      delay(9000);
+
+    }
+
+  
+
+    delay(15);
+
+  }
+
+  c++;
+
+  }
+
+ 
+
+  /*for(pos=180;pos>=0;pos-=1)
+
+  {
+
+    if(pos==0||pos==90||pos==180)
+
+    {
+
+      delay(5000);
+
+    }
+
+    myservo.write(pos);
+
+    delay(15);
+
+  }*/
+
+  
+
+  }
+
+  float t3;
+
+ 
+
+  float t2;
+
+  t2=millis();
+
+  while(millis()-t2<2000)
+
+  {
+
+   digitalWrite(MOTORINPUT1,HIGH);
+
+   digitalWrite(MOTORINPUT2,LOW);
+
+  }
+
+}
+
+}
