@@ -12,7 +12,7 @@ robot do not consider it as damage. Otherwise it detects them as a damage. After
 Raspberry pi then sent a request to the server that we defined. The server sends coordinates to pi. After that pi takes photos of damaged place in three angles 0, 90, 180.
 This can be done using servo motor as it is attached to pi camera, the camera can be rotated by the angles 0,90,180 by the servo motor.
 
-  After that raspberry pi sends coordinates and images to the server database. This sever different from the server that is used to get damaged coordinates. Finally when respective station cordinator log in to their account the damaged cordinates will be displayed on his device.
+  After that raspberry pi sends coordinates and images to the server database. This server different from the server that is used to get damaged coordinates. Finally when respective station cordinator log in to their account the damaged cordinates will be displayed on his device.
   
   
   The server code for getting coordinates is in LocationAPI.zip
